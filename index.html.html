@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nhịp Đập Toàn Cầu — Q3/2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --navy:   #1B3A6B;
+    --gold:   #C8991A;
+    --gold-lt:#FDF3D9;
+    --red-vn: #C0392B;
+    --red-lt: #FDEDEC;
+    --green-ca:#1A6B3A;
+    --green-lt:#E8F8EE;
+    --blue-us: #1A4A7A;
+    --blue-lt: #E8F0FB;
+    --purple-eu:#6B1A6B;
+    --purple-lt:#F5E8F8;
+    --grey:   #F4F5F7;
+    --dark:   #1A1A2E;
+    --mid:    #4A5568;
+    --light:  #718096;
+    --border: #E2E8F0;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #EAEEF4;
+    color: var(--dark);
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .page {
+    width: 794px;
+    margin: 32px auto;
+    background: #fff;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  /* ── COVER PAGE ── */
+  .cover {
+    background: var(--navy);
+    padding: 0;
+    min-height: 480px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #0D1F3C 0%, #1B3A6B 50%, #2A5298 100%);
+  }
+  .cover-accent {
+    position: absolute;
+    bottom: -60px; right: -60px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: rgba(200,153,26,0.12);
+  }
+  .cover-accent2 {
+    position: absolute;
+    top: -40px; left: -40px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .cover-content {
+    position: relative;
+    padding: 56px 60px 48px;
+  }
+  .cover-label {
+    display: inline-block;
+    background: var(--gold);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 2px;
+    margin-bottom: 28px;
+  }
+  .cover-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 46px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+  .cover-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.65);
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    margin-bottom: 36px;
+  }
+  .cover-divider {
+    width: 60px; height: 3px;
+    background: var(--gold);
+    margin-bottom: 28px;
+  }
+  .cover-meta {
+    display: flex; gap: 32px;
+    flex-wrap: wrap;
+  }
+  .cover-meta-item { color: rgba(255,255,255,0.75); font-size: 12px; }
+  .cover-meta-item strong { color: #fff; display: block; font-size: 13px; }
+  .cover-bottom {
+    background: rgba(0,0,0,0.25);
+    padding: 14px 60px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .cover-bottom-txt { color: rgba(255,255,255,0.5); font-size: 11px; }
+  .cover-brand { color: var(--gold); font-weight: 700; font-size: 13px; }
+
+  /* ── HIGHLIGHTS (Page 1 bottom / Page 2 top) ── */
+  .highlights {
+    background: var(--grey);
+    padding: 28px 60px;
+    border-bottom: 1px solid var(--border);
+  }
+  .highlights-title {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 18px;
+  }
+  .hl-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .hl-card {
+    background: #fff;
+    border-radius: 4px;
+    padding: 16px;
+    border-left: 3px solid var(--gold);
+  }
+  .hl-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 900;
+    color: var(--navy); line-height: 1;
+  }
+  .hl-unit { font-size: 12px; color: var(--gold); font-weight: 600; }
+  .hl-label { font-size: 11px; color: var(--mid); margin-top: 4px; }
+
+  /* ── CONTENT PAGES ── */
+  .content { padding: 40px 60px; }
+
+  /* Section header */
+  .sec-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 20px; padding-bottom: 12px;
+    border-bottom: 2px solid;
+  }
+  .sec-header.vn  { border-color: var(--red-vn); }
+  .sec-header.world { border-color: var(--navy); }
+  .sec-header.ca  { border-color: var(--green-ca); }
+  .sec-header.us  { border-color: var(--blue-us); }
+  .sec-header.eu  { border-color: var(--purple-eu); }
+  .sec-icon {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .sec-icon.vn   { background: var(--red-lt); }
+  .sec-icon.world { background: #EBF0FB; }
+  .sec-icon.ca   { background: var(--green-lt); }
+  .sec-icon.us   { background: var(--blue-lt); }
+  .sec-icon.eu   { background: var(--purple-lt); }
+  .sec-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; font-weight: 700;
+  }
+  .sec-title.vn   { color: var(--red-vn); }
+  .sec-title.world { color: var(--navy); }
+  .sec-title.ca   { color: var(--green-ca); }
+  .sec-title.us   { color: var(--blue-us); }
+  .sec-title.eu   { color: var(--purple-eu); }
+
+  /* Tag labels */
+  .tag {
+    display: inline-block;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 2px;
+    margin-right: 6px; margin-bottom: 4px;
+  }
+  .tag-official { background:#E8F0FB; color: var(--blue-us); }
+  .tag-analysis { background:#FDF3D9; color: #7A5A0A; }
+  .tag-opinion  { background:#F0FBF3; color: #1A6B3A; }
+  .tag-warning  { background:#FDEDEC; color: var(--red-vn); }
+
+  /* Stat row */
+  .stat-row { display: flex; gap: 16px; margin-bottom: 20px; }
+  .stat-box {
+    flex: 1;
+    background: var(--grey);
+    border-radius: 4px;
+    padding: 14px 16px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px; font-weight: 700;
+    line-height: 1.1;
+  }
+  .stat-num.vn-col { color: var(--red-vn); }
+  .stat-num.ca-col { color: var(--green-ca); }
+  .stat-num.us-col { color: var(--blue-us); }
+  .stat-lbl { font-size: 10px; color: var(--mid); margin-top: 3px; }
+
+  /* Body text */
+  p { margin-bottom: 12px; color: var(--mid); font-size: 13px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 12px; }
+  th {
+    padding: 8px 12px; text-align: left;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    color: #fff;
+  }
+  td { padding: 9px 12px; border-bottom: 1px solid var(--border); color: var(--mid); }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #FAFAFA; }
+
+  .tbl-navy th   { background: var(--navy); }
+  .tbl-green th  { background: var(--green-ca); }
+  .tbl-blue th   { background: var(--blue-us); }
+  .tbl-purple th { background: var(--purple-eu); }
+  .tbl-red th    { background: var(--red-vn); }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 8px; border-radius: 10px;
+    font-size: 10px; font-weight: 600;
+  }
+  .badge-open    { background: #D4EDDA; color: #155724; }
+  .badge-closed  { background: #F8D7DA; color: #721C24; }
+  .badge-limited { background: #FFF3CD; color: #856404; }
+  .badge-current { background: #D4EDDA; color: #155724; }
+  .badge-retro   { background: #F8D7DA; color: #721C24; }
+
+  /* Info box */
+  .infobox {
+    border-left: 4px solid;
+    padding: 12px 16px;
+    border-radius: 0 4px 4px 0;
+    margin: 14px 0;
+    font-size: 12px;
+  }
+  .infobox p { font-size: 12px; margin-bottom: 6px; }
+  .infobox.gold  { border-color: var(--gold); background: var(--gold-lt); }
+  .infobox.red   { border-color: var(--red-vn); background: var(--red-lt); }
+  .infobox.green { border-color: var(--green-ca); background: var(--green-lt); }
+  .infobox.blue  { border-color: var(--blue-us); background: var(--blue-lt); }
+  .infobox.navy  { border-color: var(--navy); background: #EBF0FB; }
+  .infobox-title { font-weight: 700; margin-bottom: 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+
+  /* Province cards */
+  .prov-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+  .prov-card {
+    border: 1px solid var(--border);
+    border-radius: 6px; overflow: hidden;
+  }
+  .prov-card-header {
+    padding: 10px 14px;
+    color: #fff;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .prov-card-header.bc   { background: var(--green-ca); }
+  .prov-card-header.ab   { background: #2E7D32; }
+  .prov-card-header.on   { background: #6D4C41; }
+  .prov-card-header.sk   { background: #555; }
+  .prov-card-body { padding: 12px 14px; }
+  .prov-name { font-weight: 700; font-size: 13px; }
+  .prov-sub  { font-size: 10px; opacity: 0.8; }
+
+  /* Divider */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+
+  /* Quote / Insight */
+  .insight {
+    background: var(--navy);
+    color: #fff;
+    padding: 20px 24px;
+    border-radius: 6px;
+    margin: 20px 0;
+    position: relative;
+  }
+  .insight::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    color: rgba(200,153,26,0.3);
+    position: absolute;
+    top: -8px; left: 16px;
+    line-height: 1;
+  }
+  .insight-text { font-size: 14px; line-height: 1.7; padding-left: 8px; color: #fff; }
+  .insight p { color: #fff !important; }
+  .insight-author { font-size: 11px; color: var(--gold); margin-top: 10px; padding-left: 8px; }
+
+  /* Checklist */
+  .checklist { list-style: none; }
+  .checklist li {
+    display: flex; gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px; color: var(--mid);
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .check-icon { color: var(--gold); font-weight: 700; flex-shrink: 0; }
+
+  /* Footer */
+  .footer {
+    background: var(--navy);
+    padding: 20px 60px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-brand { color: var(--gold); font-weight: 700; font-size: 14px; }
+  .footer-info  { color: rgba(255,255,255,0.5); font-size: 10px; text-align: right; }
+
+  /* Page break hint */
+  .page-break { page-break-before: always; }
+
+  /* Source note */
+  .source-note { font-size: 10px; color: var(--light); font-style: italic; margin-top: 6px; }
+
+  h3 {
+    font-size: 14px; font-weight: 700;
+    color: var(--dark); margin: 18px 0 8px;
+  }
+  h4 { font-size: 12px; font-weight: 700; color: var(--mid); margin: 12px 0 6px; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .col-label {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 2px; display: inline-block;
+    margin-bottom: 8px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     TRANG 1 — COVER + HIGHLIGHTS
+     ══════════════════════════════════════════════ -->
+<div class="page">
+
+  <!-- COVER -->
+  <div class="cover">
+    <div class="cover-bg"></div>
+    <div class="cover-accent"></div>
+    <div class="cover-accent2"></div>
+    <div class="cover-content">
+      <div class="cover-label">Bản Tin Định Kỳ Hàng Quý</div>
+      <div class="cover-title">Nhịp Đập<br>Toàn Cầu</div>
+      <div class="cover-sub">Tài Chính &amp; Đầu Tư Định Cư Quốc Tế</div>
+      <div class="cover-divider"></div>
+      <div class="cover-meta">
+        <div class="cover-meta-item"><strong>Quý 3 / 2026</strong>Kỳ phát hành</div>
+        <div class="cover-meta-item"><strong>Tháng 10, 2026</strong>Ngày biên soạn</div>
+        <div class="cover-meta-item"><strong>Canada · Mỹ · Châu Âu</strong>Thị trường bao phủ</div>
+        <div class="cover-meta-item"><strong>Columbus Immigration</strong>Đơn vị biên soạn</div>
+      </div>
+    </div>
+    <div class="cover-bottom">
+      <div class="cover-bottom-txt">Tài liệu nội bộ — Phân phối có kiểm soát</div>
+      <div class="cover-brand">Như Ý - Columbus Immigration Consultant</div>
+    </div>
+  </div>
+
+  <!-- HIGHLIGHTS -->
+  <div class="highlights">
+    <div class="highlights-title">⚡ 5 Điểm Nổi Bật Quý 3/2026</div>
+    <div class="hl-grid">
+      <div class="hl-card">
+        <div class="hl-num">9,95<span class="hl-unit">%</span></div>
+        <div class="hl-label">GDP Việt Nam Q3 — cao nhất 4 năm</div>
+      </div>
+      <div class="hl-card" style="border-color:var(--green-ca)">
+        <div class="hl-num" style="color:var(--green-ca)">10</div>
+        <div class="hl-label">Đợt draw BC PNP Entrepreneur trong 9 tháng</div>
+      </div>
+      <div class="hl-card" style="border-color:var(--blue-us)">
+        <div class="hl-num" style="color:var(--blue-us)">4,00<span class="hl-unit">%</span></div>
+        <div class="hl-label">Lãi suất Fed — tăng lần đầu từ 2023</div>
+      </div>
+    </div>
+    <div class="hl-grid" style="margin-top:12px">
+      <div class="hl-card" style="border-color:var(--red-vn)">
+        <div class="hl-num" style="color:var(--red-vn)">300</div>
+        <div class="hl-label">Triệu phú Việt dự kiến dịch chuyển/năm (Henley 2024)</div>
+      </div>
+      <div class="hl-card" style="border-color:var(--purple-eu)">
+        <div class="hl-num" style="color:var(--purple-eu)">2</div>
+        <div class="hl-label">Nước EU đóng Golden Visa BĐS (TBN 2025, BĐN 2023)</div>
+      </div>
+      <div class="hl-card" style="border-color:#2E7D32">
+        <div class="hl-num" style="color:#2E7D32">100K<span class="hl-unit"> CAD</span></div>
+        <div class="hl-label">Ngưỡng đầu tư mới Alberta Rural Entrepreneur</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-brand">Columbus Immigration Consultant</div>
+    <div class="footer-info">Nhịp Đập Toàn Cầu | Q3/2026 | Trang 1</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TRANG 2 — KINH TẾ VIỆT NAM
+     ══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="content">
+
+    <div class="sec-header vn">
+      <div class="sec-icon vn">🇻🇳</div>
+      <div class="sec-title vn">Kinh Tế Việt Nam</div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="stat-num vn-col">9,95%</div>
+        <div class="stat-lbl">GDP Q3/2026 (YoY)</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num vn-col">9,01%</div>
+        <div class="stat-lbl">GDP 9 tháng đầu năm</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num vn-col">+39,1%</div>
+        <div class="stat-lbl">Tăng trưởng xuất khẩu T9</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num vn-col">$18,2B</div>
+        <div class="stat-lbl">FDI 4 tháng đầu năm (+32% YoY)</div>
+      </div>
+    </div>
+
+    <span class="tag tag-official">Số liệu chính thức</span>
+    <p>GDP Việt Nam quý 3/2026 tăng 9,95% so với cùng kỳ — mức tăng cao nhất trong 4 năm, vượt dự báo Bloomberg (8,65%). Tính chung 9 tháng đầu năm, mức tăng đạt 9,01%. Động lực chính đến từ công nghiệp và xây dựng (+11,21%), dịch vụ (+8,69%). Các tổ chức quốc tế đồng loạt nâng dự báo cả năm: IMF lên 8,2%, UOB lên 8,5%, Standard Chartered lên 9,5%.</p>
+    <p class="source-note">Nguồn: Tổng cục Thống kê Việt Nam (NSO), công bố 3/10/2026; Bloomberg; VnEconomy</p>
+
+    <hr class="divider">
+
+    <h3>Tầng lớp có tài sản và xu hướng dịch chuyển</h3>
+
+    <div class="two-col">
+      <div>
+        <span class="tag tag-official">Số liệu chính thức</span>
+        <table class="tbl-red" style="margin-top:8px">
+          <tr><th colspan="2">Cơ cấu HNWI Việt Nam</th></tr>
+          <tr><td>Net worth &gt;$10M USD</td><td><strong>5.459 người</strong></td></tr>
+          <tr><td>Triệu phú ($1M+)</td><td><strong>19.400 người</strong></td></tr>
+          <tr><td>Tăng trưởng 10 năm</td><td><strong>+98%</strong></td></tr>
+          <tr><td>Dự báo dịch chuyển/năm</td><td><strong>~300 người</strong></td></tr>
+        </table>
+        <p class="source-note">Knight Frank 2025; Henley Private Wealth 2024</p>
+      </div>
+      <div>
+        <span class="tag tag-analysis">Phân tích thị trường</span>
+        <p style="margin-top:8px">Hai xu hướng song song này đặt ra câu hỏi đáng quan tâm: các gia đình có tài sản đang cân nhắc như thế nào về chiến lược giáo dục, cư trú và phân bổ tài sản quốc tế trong bối cảnh vừa tăng trưởng mạnh, vừa đối mặt với bất ổn toàn cầu?</p>
+        <p>Đây không phải mâu thuẫn — người rời đi không rời vì kinh tế xấu, mà vì muốn có <strong>thêm lựa chọn</strong> cho con cái và sự linh hoạt cho tài sản.</p>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <h3>Chính sách đáng chú ý</h3>
+    <div class="infobox gold">
+      <div class="infobox-title">📋 Đề xuất bãi bỏ giấy phép đầu tư ra nước ngoài</div>
+      <p>Bộ Tài chính đang đề xuất thay thế cơ chế xin phép trước bằng đăng ký sau khi có văn bản chấp thuận từ nước nhận đầu tư. Nếu được thông qua, đây sẽ là thay đổi quan trọng giúp giảm rào cản thủ tục cho dòng vốn đầu tư định cư của người Việt.</p>
+      <p class="source-note">Trạng thái: Đề xuất — chưa được thông qua (tính đến 10/2026)</p>
+    </div>
+
+  </div>
+  <div class="footer">
+    <div class="footer-brand">Columbus Immigration Consultant</div>
+    <div class="footer-info">Nhịp Đập Toàn Cầu | Q3/2026 | Trang 2</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TRANG 3 — KINH TẾ THẾ GIỚI
+     ══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="content">
+
+    <div class="sec-header world">
+      <div class="sec-icon world">🌏</div>
+      <div class="sec-title world">Kinh Tế Thế Giới</div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <span class="col-label" style="background:var(--blue-lt);color:var(--blue-us)">🇺🇸 Mỹ — Fed</span>
+        <div class="stat-box" style="text-align:left;margin-bottom:12px">
+          <div class="stat-num us-col">3,75–4,00%</div>
+          <div class="stat-lbl">Lãi suất Fed từ 16/9/2026</div>
+        </div>
+        <span class="tag tag-official">Số liệu chính thức</span>
+        <p>Ngày 16/9/2026, Fed tăng lãi suất 25 điểm cơ bản lên 3,75–4,00% — lần đầu tiên kể từ tháng 7/2023. Chủ tịch Kevin Warsh dẫn 3 lý do: thị trường lao động mạnh, lạm phát mùa hè và cú sốc năng lượng từ xung đột Iran.</p>
+        <table class="tbl-blue">
+          <tr><th colspan="2">Dự báo Fed 2026</th></tr>
+          <tr><td>PCE lạm phát 2026</td><td><strong>3,7%</strong></td></tr>
+          <tr><td>Median lãi suất year-end</td><td><strong>4,1%</strong></td></tr>
+          <tr><td>Họp tiếp theo</td><td><strong>27–28/10/2026</strong></td></tr>
+          <tr><td>Dự báo thị trường</td><td><strong>50/50 giữ/tăng</strong></td></tr>
+        </table>
+        <p class="source-note">Nguồn: Federal Reserve; FOMC Meeting Schedule; CoinGape Prediction Markets</p>
+      </div>
+
+      <div>
+        <span class="col-label" style="background:var(--green-lt);color:var(--green-ca)">🇨🇦 Canada — BoC</span>
+        <div class="infobox green" style="margin-top:0">
+          <div class="infobox-title">Ngược chiều Fed</div>
+          <p>Ngân hàng Trung ương Canada (BoC) đang trong xu hướng <strong>cắt giảm lãi suất</strong> để kích thích kinh tế, ngược chiều hoàn toàn với Fed. Điều này tạo môi trường chi phí vay thấp hơn — thuận lợi cho doanh nhân nhập cư trong giai đoạn thiết lập doanh nghiệp.</p>
+        </div>
+
+        <span class="col-label" style="background:#F3E8FF;color:var(--purple-eu);margin-top:14px">🌍 Toàn cầu — IMF</span>
+        <div class="infobox" style="border-color:var(--purple-eu);background:var(--purple-lt);margin-top:8px">
+          <div class="infobox-title">Cảnh báo tăng trưởng chậm lại</div>
+          <p>IMF cảnh báo tăng trưởng kinh tế toàn cầu 2026 sẽ chậm lại do cú sốc năng lượng từ xung đột Trung Đông. Dự kiến phục hồi từ 2027. Bất ổn địa chính trị kéo dài là yếu tố thúc đẩy nhu cầu đa dạng hóa quốc tịch và tài sản của tầng lớp HNWI.</p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <span class="tag tag-opinion">Góc nhìn tư vấn</span>
+    <div class="insight" style="margin-top:10px">
+      <p class="insight-text">Fed tăng lãi suất tác động đến EB-5 theo hai chiều: dự án phụ thuộc vay ngân hàng chịu áp lực chi phí vốn cao hơn, trong khi đó USD mạnh hơn khiến quy đổi từ VND sang USD đắt hơn. Ngược lại tại Canada, lãi suất thấp là lợi thế thực tế cho doanh nhân mới thiết lập doanh nghiệp trong 1–2 năm đầu.</p>
+      <div class="insight-author">— Phân tích Columbus Immigration, Q3/2026</div>
+    </div>
+
+  </div>
+  <div class="footer">
+    <div class="footer-brand">Columbus Immigration Consultant</div>
+    <div class="footer-info">Nhịp Đập Toàn Cầu | Q3/2026 | Trang 3</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TRANG 4 — CANADA PNP
+     ══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="content">
+
+    <div class="sec-header ca">
+      <div class="sec-icon ca">🇨🇦</div>
+      <div class="sec-title ca">Canada — PNP Doanh Nhân Tỉnh Bang</div>
+    </div>
+
+    <span class="tag tag-official">Số liệu chính thức</span>
+    <p>Canada đặt mục tiêu 91.500 PR qua PNP năm 2026, tổng quota tăng ~31% so với 2025. Từ 30/3/2026, quy định SOR/2026-63 trao cho tỉnh bang toàn quyền đánh giá "ý định cư trú" của ứng viên. Start-Up Visa liên bang đóng cửa từ 1/1/2026.</p>
+
+    <div class="infobox gold">
+      <div class="infobox-title">⚠️ Lưu ý quan trọng về Quota</div>
+      <p>Quota PNP tổng thể phản ánh toàn bộ các diện của tỉnh bang, không phải chỉ tiêu riêng cho Entrepreneur Stream. Số lời mời thực tế cho diện doanh nhân thường chiếm tỷ lệ nhỏ hơn đáng kể so với tổng quota. Cần đối chiếu số liệu draw từng tỉnh để đánh giá cơ hội thực tế.</p>
+    </div>
+
+    <h3>Tình trạng các tỉnh bang — Diện Doanh nhân (Q3/2026)</h3>
+
+    <div class="prov-grid">
+      <!-- BC -->
+      <div class="prov-card">
+        <div class="prov-card-header bc">
+          <div><div class="prov-name">British Columbia</div><div class="prov-sub">BC PNP Entrepreneur</div></div>
+          <span class="badge badge-open">Đang mở</span>
+        </div>
+        <div class="prov-card-body">
+          <table style="margin:0;font-size:11px">
+            <tr><td style="color:var(--mid)">Tổng quota 2026</td><td><strong>6.254</strong> nominations</td></tr>
+            <tr><td style="color:var(--mid)">Số draw YTD</td><td><strong>10 đợt</strong> (đến 22/9)</td></tr>
+            <tr><td style="color:var(--mid)">Điểm draw gần nhất</td><td><strong>119/200</strong> (22/9/2026)</td></tr>
+            <tr><td style="color:var(--mid)">Base: Net worth / Vốn</td><td>$600K / $200K CAD</td></tr>
+            <tr><td style="color:var(--mid)">Regional: Net worth / Vốn</td><td>$300K / $100K CAD</td></tr>
+            <tr><td style="color:var(--mid)">Sở hữu tối thiểu</td><td>33,3%</td></tr>
+          </table>
+          <p class="source-note" style="margin-top:8px">Nguồn: cicnews.com, BC PNP official</p>
+        </div>
+      </div>
+
+      <!-- Alberta -->
+      <div class="prov-card">
+        <div class="prov-card-header ab">
+          <div><div class="prov-name">Alberta (AAIP)</div><div class="prov-sub">Rural Entrepreneur Stream</div></div>
+          <span class="badge badge-open">Đang mở</span>
+        </div>
+        <div class="prov-card-body">
+          <table style="margin:0;font-size:11px">
+            <tr><td style="color:var(--mid)">Tổng quota 2026</td><td><strong>6.603</strong> nominations</td></tr>
+            <tr><td style="color:var(--mid)">Vốn đầu tư (Rural)</td><td><strong>$100K CAD</strong> ↓ (mới 2026)</td></tr>
+            <tr><td style="color:var(--mid)">Vốn đầu tư (Grad)</td><td>$50K CAD</td></tr>
+          </table>
+          <div class="infobox" style="border-color:#2E7D32;background:#F1F8F1;margin-top:10px;padding:8px 12px">
+            <p style="font-size:11px;margin:0"><strong>⚠️ Lưu ý:</strong> Ngưỡng vốn thấp không đồng nghĩa hồ sơ dễ hơn. Tỉnh bang đánh giá nghiêm ngặt tính khả thi của business plan, năng lực quản lý và tác động kinh tế địa phương.</p>
+          </div>
+          <p class="source-note" style="margin-top:6px">Nguồn: AAIP official, amirismail.com</p>
+        </div>
+      </div>
+
+      <!-- Ontario -->
+      <div class="prov-card">
+        <div class="prov-card-header on">
+          <div><div class="prov-name">Ontario (OINP)</div><div class="prov-sub">Entrepreneur Stream</div></div>
+          <span class="badge badge-closed">Đã đóng</span>
+        </div>
+        <div class="prov-card-body">
+          <p style="font-size:12px;margin:0;color:var(--mid)">Đóng cửa từ tháng 11/2024. Tính đến 10/2026 chưa có thông báo mở lại hoặc điều kiện mới. Ontario có quota tổng 14.119 cho các diện khác, nhưng diện doanh nhân chưa hoạt động.</p>
+        </div>
+      </div>
+
+      <!-- Saskatchewan -->
+      <div class="prov-card">
+        <div class="prov-card-header sk">
+          <div><div class="prov-name">Saskatchewan</div><div class="prov-sub">Entrepreneur &amp; Farm</div></div>
+          <span class="badge badge-closed">Đóng vĩnh viễn</span>
+        </div>
+        <div class="prov-card-body">
+          <p style="font-size:12px;margin:0;color:var(--mid)">Cả Entrepreneur lẫn Farm Stream đóng vĩnh viễn từ 27/3/2025. Không tiếp nhận EOI, hồ sơ hay lời mời mới. Không còn là lựa chọn khả thi.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="infobox green">
+      <div class="infobox-title">📌 Kết luận cho tư vấn</div>
+      <p><strong>BC PNP</strong> (Base hoặc Regional) và <strong>Alberta AAIP</strong> là hai lựa chọn thực tế duy nhất hiện nay. BC phù hợp với KH có vốn trên $500K USD, muốn định cư Vancouver; Alberta phù hợp với vốn $150K–$400K USD và linh hoạt địa điểm. Draw BC đang diễn ra đều đặn — thị trường đang mở.</p>
+    </div>
+
+  </div>
+  <div class="footer">
+    <div class="footer-brand">Columbus Immigration Consultant</div>
+    <div class="footer-info">Nhịp Đập Toàn Cầu | Q3/2026 | Trang 4</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TRANG 5 — MỸ EB-5 + CHÂU ÂU
+     ══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="content">
+
+    <div class="sec-header us">
+      <div class="sec-icon us">🇺🇸</div>
+      <div class="sec-title us">Mỹ — EB-5 &amp; Visa Bulletin Tháng 10/2026</div>
+    </div>
+
+    <h3>Visa Bulletin Tháng 10/2026 — Diện EB-5</h3>
+    <span class="tag tag-official">Số liệu chính thức — Bộ Ngoại giao Mỹ</span>
+
+    <table class="tbl-blue" style="margin-top:10px">
+      <tr><th>Diện</th><th>Việt Nam / ROW</th><th>Trung Quốc</th><th>Ấn Độ</th></tr>
+      <tr>
+        <td><strong>EB-5 Set-Aside</strong><br><small style="color:var(--light)">(Rural / High Unemp. / Infrastructure)</small></td>
+        <td><span class="badge badge-current">Current ✓</span></td>
+        <td><span class="badge badge-current">Current ✓</span></td>
+        <td><span class="badge badge-current">Current ✓</span></td>
+      </tr>
+      <tr>
+        <td><strong>EB-5 Unreserved</strong><br><small style="color:var(--light)">(Final Action Date)</small></td>
+        <td><span class="badge badge-current">Current ✓</span></td>
+        <td><span class="badge badge-limited">01/12/2016</span></td>
+        <td><span class="badge badge-limited">01/12/2023</span></td>
+      </tr>
+      <tr>
+        <td><strong>EB-2</strong><br><small style="color:var(--light)">(Final Action — lưu ý)</small></td>
+        <td><span class="badge badge-retro">01/01/2025 ↓</span></td>
+        <td><span class="badge badge-limited">01/10/2021</span></td>
+        <td><span class="badge badge-limited">01/11/2013</span></td>
+      </tr>
+    </table>
+
+    <div class="infobox blue">
+      <div class="infobox-title">📖 Giải thích "Current"</div>
+      <p>"Current" có nghĩa tại thời điểm công bố không có ngày ưu tiên tồn đọng — <strong>không đồng nghĩa</strong> hồ sơ I-526E được USCIS phê duyệt ngay hoặc nhà đầu tư chắc chắn nhận Thẻ xanh trong thời gian ngắn. Thời gian xử lý I-526E hiện dao động 29–48 tháng, I-829 khoảng 39–49 tháng.</p>
+    </div>
+
+    <div class="infobox navy">
+      <div class="infobox-title">💡 Điểm mạnh Set-Aside cho nhà đầu tư Việt</div>
+      <p>Các danh mục Set-Aside (Rural, High Unemployment, Infrastructure) đang Current cho mọi quốc gia, tức là không có hàng đợi visa. Đây là lý do cấu trúc Set-Aside được ưu tiên trong các dự án EB-5 hiện đại.</p>
+    </div>
+
+    <div class="infobox gold">
+      <div class="infobox-title">⚠️ Điều chỉnh ngưỡng đầu tư EB-5</div>
+      <p>Ngưỡng đầu tư $800.000 USD (TEA/Set-Aside) được điều chỉnh định kỳ theo chỉ số CPI-U. Nhà đầu tư nên chủ động xác minh mốc thời gian điều chỉnh cụ thể và cơ chế grandfathering với tư vấn pháp lý được ủy quyền trước khi ra quyết định.</p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="sec-header eu">
+      <div class="sec-icon eu">🇪🇺</div>
+      <div class="sec-title eu">Châu Âu — Golden Visa Cập Nhật</div>
+    </div>
+
+    <table class="tbl-purple">
+      <tr><th>Quốc gia</th><th>Trạng thái</th><th>Điều kiện chính</th><th>Lưu ý</th></tr>
+      <tr>
+        <td><strong>🇪🇸 Tây Ban Nha</strong></td>
+        <td><span class="badge badge-closed">Đóng 3/4/2025</span></td>
+        <td>Không áp dụng</td>
+        <td>Đóng toàn bộ chương trình, kể cả diện phi BĐS</td>
+      </tr>
+      <tr>
+        <td><strong>🇵🇹 Bồ Đào Nha</strong></td>
+        <td><span class="badge badge-limited">Hạn chế</span></td>
+        <td>Quỹ đầu tư: <strong>€500.000</strong></td>
+        <td>BĐS đóng 10/2023; tồn đọng 20.000–50.000 hồ sơ tại AIMA</td>
+      </tr>
+      <tr>
+        <td><strong>🇬🇷 Hy Lạp</strong></td>
+        <td><span class="badge badge-open">Đang mở</span></td>
+        <td>BĐS Athens/Santorini: <strong>€800K</strong><br>Khu vực khác: <strong>€400K</strong></td>
+        <td>Không yêu cầu thời gian cư trú tối thiểu</td>
+      </tr>
+      <tr>
+        <td><strong>🇮🇹 Italy / 🇲🇹 Malta / 🇧🇬 Bulgaria</strong></td>
+        <td><span class="badge badge-open">Đang mở</span></td>
+        <td>Tùy diện</td>
+        <td>Điều kiện và quyền lợi khác nhau — cần xác minh theo từng case</td>
+      </tr>
+    </table>
+
+    <div class="infobox" style="border-color:var(--purple-eu);background:var(--purple-lt)">
+      <div class="infobox-title" style="color:var(--purple-eu)">📝 Lưu ý Bồ Đào Nha — Quyền nhập tịch</div>
+      <p>Không có "hộ chiếu EU tự động sau 5 năm". Đúng hơn là: sau khi đáp ứng đủ điều kiện theo quy định hiện hành (bao gồm thời gian cư trú và kiểm tra ngôn ngữ), nhà đầu tư <strong>đủ điều kiện nộp đơn xin nhập quốc tịch</strong> — không phải được cấp tự động. Mức đầu tư diện quỹ là €500.000, không phải €250.000 (mức €250.000 dành riêng cho diện hỗ trợ nghệ thuật/văn hóa có điều kiện đặc thù).</p>
+      <p class="source-note">Nguồn: AIMA (Cơ quan Di trú và Nhập tịch Bồ Đào Nha)</p>
+    </div>
+
+  </div>
+  <div class="footer">
+    <div class="footer-brand">Columbus Immigration Consultant</div>
+    <div class="footer-info">Nhịp Đập Toàn Cầu | Q3/2026 | Trang 5</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TRANG 6 — GÓC NHÌN NHƯ Ý + HÀNH ĐỘNG
+     ══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="content">
+
+    <div class="sec-header" style="border-color:var(--gold)">
+      <div class="sec-icon" style="background:var(--gold-lt)">✍️</div>
+      <div class="sec-title" style="color:var(--gold)">Góc Nhìn Như Ý</div>
+    </div>
+
+    <div class="insight" style="margin-top:0">
+      <p class="insight-text">Khi một quốc gia thay đổi chính sách định cư, điều nhà đầu tư cần đánh giá không chỉ là chương trình còn mở hay đã đóng — mà là liệu chương trình đó có còn phù hợp với mục tiêu gia đình, khả năng tài chính và mức độ chấp nhận rủi ro của mình hay không. Tây Ban Nha đóng cửa, Bồ Đào Nha tắc nghẽn, Ontario tạm dừng — những KH đang "chờ thêm thông tin" thực ra đang chứng kiến danh sách lựa chọn của mình rút ngắn dần.</p>
+      <div class="insight-author">— Nhu Y, Columbus Immigration Consultant</div>
+    </div>
+
+    <h3>3 Điểm đáng cân nhắc trong Q4/2026</h3>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:14px 0">
+      <div style="border:1px solid var(--border);border-radius:6px;overflow:hidden">
+        <div style="background:var(--green-ca);color:#fff;padding:10px 14px;font-weight:700;font-size:12px">🇨🇦 Canada PNP</div>
+        <div style="padding:12px 14px">
+          <p style="font-size:12px">BC đang ở chu kỳ hoạt động tích cực — 10 đợt draw trong 9 tháng. KH đã chuẩn bị hồ sơ nên submit EOI sớm. Alberta là cửa thay thế nếu vốn chưa đáp ứng BC Base.</p>
+          <p style="font-size:11px;color:var(--light)">Rủi ro cần làm rõ: tính khả thi business plan, ngành nghề phù hợp địa phương.</p>
+        </div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:6px;overflow:hidden">
+        <div style="background:var(--blue-us);color:#fff;padding:10px 14px;font-weight:700;font-size:12px">🇺🇸 EB-5 Mỹ</div>
+        <div style="padding:12px 14px">
+          <p style="font-size:12px">Set-Aside Current cho Việt Nam. Lãi suất Fed cao tạo áp lực cho dự án vay bank — nên ưu tiên dự án equity-model. Cần xác minh mốc điều chỉnh ngưỡng vốn với tư vấn pháp lý.</p>
+          <p style="font-size:11px;color:var(--light)">Rủi ro cần làm rõ: SOF (nguồn gốc vốn), lịch trình I-526E theo dự án cụ thể.</p>
+        </div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:6px;overflow:hidden">
+        <div style="background:var(--purple-eu);color:#fff;padding:10px 14px;font-weight:700;font-size:12px">🇪🇺 Châu Âu</div>
+        <div style="padding:12px 14px">
+          <p style="font-size:12px">Hy Lạp còn khả thi nhất cho BĐS EU. Bồ Đào Nha: diện quỹ €500K còn mở nhưng tồn đọng nặng. Cần xác định rõ mục tiêu: cư trú, hộ chiếu EU hay tối ưu thuế.</p>
+          <p style="font-size:11px;color:var(--light)">Rủi ro cần làm rõ: thời gian xử lý, tính ổn định chương trình dài hạn.</p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <h3>Checklist trước khi quyết định đầu tư định cư</h3>
+    <ul class="checklist">
+      <li><span class="check-icon">✓</span>Xác định mục tiêu rõ ràng: Thẻ xanh / PR / Quốc tịch thứ hai / Cư trú linh hoạt?</li>
+      <li><span class="check-icon">✓</span>Rà soát nguồn vốn và khả năng chứng minh SOF (Source of Funds) theo yêu cầu từng nước</li>
+      <li><span class="check-icon">✓</span>Đánh giá timeline cá nhân: khi nào cần kết quả? Timeline có khớp với thời gian xử lý chương trình?</li>
+      <li><span class="check-icon">✓</span>Tìm hiểu rủi ro thực tế của từng chương trình, không chỉ lợi ích</li>
+      <li><span class="check-icon">✓</span>Trao đổi với tư vấn viên về profile cụ thể trước khi đưa ra quyết định</li>
+    </ul>
+
+    <hr class="divider">
+
+    <div style="background:var(--grey);border-radius:6px;padding:20px 24px;display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <div style="font-weight:700;font-size:14px;color:var(--navy);margin-bottom:4px">Trao đổi cùng tư vấn viên</div>
+        <div style="font-size:12px;color:var(--mid)">Đánh giá sơ bộ mức độ phù hợp của chương trình định cư với mục tiêu gia đình và khả năng tài chính của anh/chị.</div>
+      </div>
+      <div style="text-align:right;flex-shrink:0;margin-left:20px">
+        <div style="font-weight:700;color:var(--navy);font-size:13px">Như Ý</div>
+        <div style="font-size:11px;color:var(--mid)">Columbus Immigration Consultant</div>
+        <div style="font-size:11px;color:var(--gold);font-weight:600">094.727.6831</div>
+      </div>
+    </div>
+
+    <p class="source-note" style="margin-top:20px">Bản tin này được biên soạn dựa trên thông tin công khai từ IRCC, USCIS, Bộ Ngoại giao Mỹ, AIMA Bồ Đào Nha, Knight Frank, Henley &amp; Partners và các cơ quan báo chí chuyên ngành tính đến 9/10/2026. Thông tin có thể thay đổi. Vui lòng xác nhận với tư vấn viên trước khi đưa ra quyết định đầu tư. Bản tin không cấu thành tư vấn pháp lý hay tài chính.</p>
+
+  </div>
+  <div class="footer">
+    <div class="footer-brand">Columbus Immigration Consultant</div>
+    <div class="footer-info">Nhịp Đập Toàn Cầu | Q3/2026 | Trang 6 / 6</div>
+  </div>
+</div>
+
+</body>
+</html>
